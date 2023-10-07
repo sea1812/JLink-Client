@@ -17,6 +17,10 @@ func main() {
 			fmt.Println(mOut)
 		}
 	}
+	//初始化MQTT
+	mCfg := app.LoadAllConfig()
+	app.InitMQTT(fmt.Sprint(mCfg["broker_ip"]), mCfg["broker_port"].(int), fmt.Sprint(mCfg["broker_user"]), fmt.Sprint(mCfg["broker_pwd"]), fmt.Sprint(mCfg["broker_topic"]))
+
 	//启动监听Socket Server，接收Listener发过来的实时消息
 	go app.StartTCPServer()
 	//启动http服务

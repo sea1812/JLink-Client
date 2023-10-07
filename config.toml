@@ -72,10 +72,23 @@ private_pem = "./cert/private.pem"
 access_user = "test"
 access_pwd = "test"
 
+# Supervisor RPC 设置
 [supervisor]
 url = "http://127.0.0.1:9001/RPC2"
 dir = "/etc/supervisor/conf.d"
 conf= "/etc/supervisor/supervisord.conf"
 
+# 内置TCP Server 配置
 [tcp]
 port = 10020
+
+# MQTT服务器配置
+[mqtt]
+broker_ip	= "192.168.0.110"
+broker_port = 1883
+broker_user = "emqx"
+broker_pwd =  "public"
+
+# 报警配置
+alerm_enable = true
+alerm_process_state_change_topic = "AlermProcessStateChange"

@@ -22,8 +22,12 @@ func StartTCPServer() {
 				mPayload := mJson.GetString("payload")
 				//拆分字符串，解析出processname字段和from_state字段
 				mPayloadMap := ParsePayload(mPayload)
+				mPayloadJson := gjson.New(mPayloadMap)
 				fmt.Println(mEventName, mPayloadMap)
-				//
+				//发出报警MQTT消息
+				if g.Cfg().GetBool("mqtt.alerm_enable") == true {
+					go mc.Publish(g.Cfg().GetString("mqtt.alerm_process_state_change_topic"), 0, false, mPayloadJson.Export())
+				}
 			}
 			if err != nil {
 				break
